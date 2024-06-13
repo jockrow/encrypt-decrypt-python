@@ -1,3 +1,6 @@
+# Description
+Terminal Application written in Python that Encrypt and Decrypt a file
+
 # Installation
 
 Clone this respository:
@@ -19,7 +22,7 @@ Line 3 of the data.
 
 Execute this command:
 
-```sh~~ 
+```sh
 python python-encrypt.py testToEncrypt.txt
 ```
 
@@ -44,7 +47,7 @@ Content file testToDecrypt.txt
 
 Execute this command:
 
-```sh~~ 
+```sh
 python python-decrypt.py testToDecrypt.txt
 ```
 

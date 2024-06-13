@@ -3,6 +3,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 import base64
+import sys
 import pyperclip
 # import sys
 from getpass import getpass
@@ -15,9 +16,25 @@ completed = "8Drk6Sf7lqGBzb3vviMccA==mVW11IWfiksmtBT0o0O1FQ=="
 
 # Decoded base64 IV and ciphertext
 # Qitado el b'
-base64_iv = "DH9kNHdUHIxkDRbdoK3Uag=="
-base64_ciphertext = "3Ub+2QFHGJ+QObZz4eUGJHi9z7l8VmYlUxc1bYuZ6g/vFzMLebztsSaUbSPxmj0Yh+HYn5Y+Gyv6tYIEfYUskW2s4o/BPR8K1Kb7/buy4jg="
+# base64_iv = "DH9kNHdUHIxkDRbdoK3Uag=="
+# base64_ciphertext = "3Ub+2QFHGJ+QObZz4eUGJHi9z7l8VmYlUxc1bYuZ6g/vFzMLebztsSaUbSPxmj0Yh+HYn5Y+Gyv6tYIEfYUskW2s4o/BPR8K1Kb7/buy4jg="
+base64_iv = "8Drk6Sf7lqGBzb3vviMccA=="
+base64_ciphertext = "Yun7Ci7hi27cxAezhd+1OU44gETD6ozzq6ILrzev0JRhrLdIUGa3peMrjiUtLfnmCZPqDtVLMbBEYxmKj5+5ybPT3pZNc/bu68lxj64ey7SPo+CVs5Bz6cbA96KxHZzU"
 
+file_path = sys.argv[1]
+with open(file_path, 'rb') as file:
+    data = str(file.read())
+# print("data:", data)
+
+arr_data = data.split("==", 1)
+print("0:", arr_data[0])
+print("1:", arr_data[1])
+print("length:", len(arr_data))
+# base64_iv = arr_data[0].replace("b'", "") + "=="
+# base64_ciphertext = arr_data[1].replace("\\n'", "")
+
+print("base64_iv:", base64_iv)
+print("base64_ciphertext:", base64_ciphertext)
 
 # base64_iv = "8Drk6Sf7lqGBzb3vviMccA=="
 # base64_ciphertext = "hYXTgWS4cnRDgwMLmrez3XFrfYmKiQX+3J8+wZZfJFiQJxlUBdSQ4Ql6D78KNl/M3/6HY95GxKtGxusHRt9DBd4ysJRmCWJmAaEj7I7sKCM="
@@ -39,7 +56,7 @@ ciphertext = base64.b64decode(base64_ciphertext)
 # Your passphrase
 # passphrase = b'admin'
 passphrase = bytes(getpass(), "utf-8")
-print(passphrase)
+# print(passphrase)
 
 # Generate a salt (usually done once and stored securely)
 salt = b'\xc3\x17\xfe/7\x1a\xf0\xfa\x1d\xdb\x99V\xdbp\x84\x81'
@@ -59,10 +76,11 @@ key = base64.urlsafe_b64encode(kdf.derive(passphrase))
 cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
 decryptor = cipher.decryptor()
 decrypted_data = decryptor.update(ciphertext) + decryptor.finalize()
-print("decrypted_data:", decrypted_data)
+# print("decrypted_data:", decrypted_data)
 
 # unpadded_data = unpad_data(decrypted_data)
 pad_length = decrypted_data[-1]
+print("decrypted_data:", decrypted_data)
 data = re.sub("^b'|'", "", decrypted_data.decode()).replace("\\r\\n", "\n")
 unpadded_data = data[:-pad_length]
 
@@ -71,4 +89,4 @@ unpadded_data = data[:-pad_length]
 pyperclip.copy(unpadded_data)
 spam = pyperclip.paste()
 # print('spam:', spam)
-print("File content encrypt, you can paste the resutl in a new file")
+print("File content decrypt, you can paste the result in a new file")

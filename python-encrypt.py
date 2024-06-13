@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 import base64
 import os
+import sys
 import pyperclip
 from getpass import getpass
 # import re
@@ -22,13 +23,19 @@ def pad_data(data, block_size):
 # passphrase = input("Enter password: ")
 passphrase = bytes(getpass(), "utf-8")
 # data = 'any code'
-data = """Line 1 of the data.
-    Line 2 of the data.
-    Line 3 of the data.
-"""
+# data = """Line 1 of the data.
+    # Line 2 of the data.
+    # Line 3 of the data.
+# """
+#
+
+
+# print("argumento:", sys.argv[0])
+
 # file_path = './testToEncrypt.txt'
-# with open(file_path, 'rb') as file:
-#     data = str(file.read())
+file_path = sys.argv[1]
+with open(file_path, 'rb') as file:
+    data = str(file.read())
 # # data = data.replace("\\r\\n", "\n")
 # # print("typedata:", type(data))
 # # print("data:" + data)
@@ -36,7 +43,7 @@ data = """Line 1 of the data.
 # # # data = str(data).encode()
 # # # data = data.()
 # data = pyperclip.paste()
-print("data:", data)
+# print("data:", data)
 
 # Generate a random 16-byte IV
 iv = os.urandom(16)
@@ -75,4 +82,4 @@ base64_ciphertext = base64.b64encode(ciphertext).decode("utf-8")
 pyperclip.copy(base64_iv + base64_ciphertext)
 completed = pyperclip.paste()
 # print('completed = "' + completed + '"')
-print("File content encrypt, you can paste the resutl in a new file")
+print("File content encrypt, you can paste the result in a new file")
