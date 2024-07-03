@@ -5,7 +5,7 @@ Terminal Application written in Python that Encrypt and Decrypt a file
 
 Clone this respository:
 ```sh
-git clone 
+git clone https://github.com/jockrow/encrypt-decrypt-python.git
 ```
 
 # Instructions
