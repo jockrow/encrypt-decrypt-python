@@ -10,7 +10,7 @@ git clone https://github.com/jockrow/encrypt-decrypt-python.git
 
 # Instructions
 
-## To Encrypt
+## Example to Encrypt
 
 Content file testToEncrypt.txt:
 
@@ -37,7 +37,9 @@ Example, paste this content in a file, example: called testToDecrypt.txt:
 8Drk6Sf7lqGBzb3vviMccA==v37aFHvDuTSFaWpHgUphIsDSK/bUijltDT9Fnl43brPaVdnukbyh51jjRe46Ba2bakjJm3wHZBmvYwb3RXPfzBrQhEZgjF2PTHphsnSA42Q=
 ```
 
-## To Encrypt
+---
+
+## Example to Decrypt
 
 Content file testToDecrypt.txt
 
